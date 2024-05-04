@@ -1,0 +1,17 @@
+Bez StandardScaler:
+Random Forest: 65.8962962962963%
+Decision Tree: 57.27407407407408%
+Naive Bayes accuracy: 57.718518518518515%
+3NN accuracy: 61.12592592592593%
+5NN accuracy: 59.37777777777777%
+11NN accuracy: 56.11851851851852%
+Neural Network accuracy: 51.20000243186951%
+
+Z StandardScaler:
+Random Forest: 65.92592592592592%
+Decision Tree: 57.214814814814815%
+Naive Bayes accuracy: 64.05925925925926%
+3NN accuracy: 62.133333333333326%
+5NN accuracy: 62.54814814814815%
+11NN accuracy: 61.06666666666667
+Neural Network accuracy: 62.99259066581726%

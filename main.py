@@ -1,23 +1,32 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
+from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import confusion_matrix, accuracy_score, ConfusionMatrixDisplay
+from sklearn.preprocessing import StandardScaler, RobustScaler
+from sklearn.metrics import (
+    confusion_matrix,
+    accuracy_score,
+    ConfusionMatrixDisplay,
+    roc_auc_score,
+)
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
 from keras.models import Sequential, Model
 from keras.layers import Dense, Dropout, Flatten
-from sklearn.ensemble import RandomForestClassifier
-import numpy as np
-from mlxtend.frequent_patterns import apriori, association_rules, fpgrowth
-from imblearn.over_sampling import SMOTE
 from keras.regularizers import l2
 from keras.callbacks import EarlyStopping
+from mlxtend.frequent_patterns import association_rules, fpgrowth
 
 
 def load_and_preprocess_data():
     df = pd.read_csv("dataset.csv")
+
+    print(df.shape)
+    # print(df.duplicated().sum())  # 0
+    print(f"Brakujące wartości: {df.isnull().sum().sum()}")
 
     mappings = {
         "Sex": {"Male": 0, "Female": 1},
@@ -39,30 +48,25 @@ def load_and_preprocess_data():
     df[["Systolic", "Diastolic"]] = (
         df["Blood Pressure"].str.strip().str.split("/", expand=True)
     )
-    df["Systolic"] = df["Systolic"].astype(float)
-    df["Diastolic"] = df["Diastolic"].astype(float)
+    df["Systolic"] = df["Systolic"].astype(int)
+    df["Diastolic"] = df["Diastolic"].astype(int)
 
     df = df.dropna()
     df = df.drop(columns=["Patient ID", "Blood Pressure", "Country"])
 
-    # for column in df.columns:
-    #     if column == "Heart Attack Risk":
-    #         print(df[column].value_counts())
-
     return df
 
 
+# --- Downsampling ---
 # def balance_data(df):
 #     df_majority = df[df["Heart Attack Risk"] == 0]
 #     df_minority = df[df["Heart Attack Risk"] == 1]
-
 #     df_majority_downsampled = df_majority.sample(n=len(df_minority), random_state=42)
-
 #     df_balanced = pd.concat([df_majority_downsampled, df_minority])
-
 #     return df_balanced
 
 
+# --- Upsampling ---
 # def balance_data(df):
 #     true = df["Heart Attack Risk"].sum()
 #     rows, cols = df.shape
@@ -73,6 +77,7 @@ def load_and_preprocess_data():
 #     return df
 
 
+# --- SMOTE ---
 def balance_data(df):
     sm = SMOTE(random_state=285806)
 
@@ -130,7 +135,10 @@ def rfc(X_train, y_train, X_test, y_test):
     clf = clf.fit(X_train, y_train)
     predict = clf.predict(X_test)
     acc = accuracy_score(y_test, predict) * 100
-    print(f"Random Forest: {acc}%")
+    roc = roc_auc_score(y_test, predict) * 100
+    print("Random Forest")
+    print(f"Accuracy: {acc}%")
+    print(f"AUC ROC: {roc}%")
 
     cm = confusion_matrix(y_test, predict)
     cfd = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=clf.classes_)
@@ -143,7 +151,10 @@ def dtc(X_train, y_train, X_test, y_test):
     clf = clf.fit(X_train, y_train)
     predict = clf.predict(X_test)
     acc = accuracy_score(y_test, predict) * 100
-    print(f"Decision Tree: {acc}%")
+    roc = roc_auc_score(y_test, predict) * 100
+    print("Decision Tree")
+    print(f"Accuracy: {acc}%")
+    print(f"AUC ROC: {roc}%")
 
     cm = confusion_matrix(y_test, predict)
     cfd = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=clf.classes_)
@@ -156,7 +167,10 @@ def gaussian(X_train, y_train, X_test, y_test):
     gnb.fit(X_train, y_train)
     y_pred = gnb.predict(X_test)
     acc = accuracy_score(y_test, y_pred) * 100
-    print(f"Naive Bayes accuracy: {acc}%")
+    roc = roc_auc_score(y_test, y_pred) * 100
+    print("Naive Bayes")
+    print(f"Accuracy: {acc}%")
+    print(f"AUC ROC: {roc}%")
 
     cm = confusion_matrix(y_test, y_pred)
     cfd = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=gnb.classes_)
@@ -173,7 +187,10 @@ def knn(X_train, y_train, X_test, y_test):
         y_pred = knc.predict(X_test)
 
         acc = accuracy_score(y_test, y_pred) * 100
-        print(f"{i}NN accuracy: {acc}%")
+        roc = roc_auc_score(y_test, y_pred) * 100
+        print(f"{i}NN")
+        print(f"Accuracy: {acc}%")
+        print(f"AUC ROC: {roc}%")
 
         cm = confusion_matrix(y_test, y_pred)
         cfd = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=knc.classes_)
@@ -213,7 +230,10 @@ def neural_network(X_train, y_train, X_test, y_test):
     )
 
     _, test_acc = model.evaluate(X_test, y_test)
-    print(f"Neural Network accuracy: {test_acc * 100}%")
+    roc = roc_auc_score(y_test, model.predict(X_test)) * 100
+    print("Neural Network")
+    print(f"Accuracy: {test_acc * 100}%")
+    print(f"AUC ROC: {roc}%")
 
     cm = confusion_matrix(
         y_test,
@@ -223,7 +243,7 @@ def neural_network(X_train, y_train, X_test, y_test):
     cfd.plot()
     plt.show()
 
-    return model, history
+    return history
 
 
 def create_association_rules(df):
@@ -253,10 +273,10 @@ def create_association_rules(df):
 
     encoded_df = pd.get_dummies(df)
 
-    frequent_itemsets = fpgrowth(encoded_df, min_support=0.01, use_colnames=True)
+    frequent_itemsets = fpgrowth(encoded_df, min_support=0.008, use_colnames=True)
     rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.8)
 
-    rules = rules[rules["consequents"].apply(lambda x: "Heart Attack Risk" in str(x))]
+    rules = rules[rules["consequents"].apply(lambda x: "Heart Attack Risk_1" in str(x))]
 
     return rules
 
@@ -273,13 +293,16 @@ def plot_rules(rules, column1, column2):
 def main():
     # --- Prepare data ---
     df = load_and_preprocess_data()
+    # for column in df.columns:
+    #     if column == "Heart Attack Risk":
+    #         print(df[column].value_counts())
+
     # print("df.shape przed upsampling:\n", df.shape)
     # print(df.head())
-    # print(df.isnull().sum())
     df = balance_data(df)
-    # for column in df_balanced.columns:
+    # for column in df.columns:
     #     if column == "Heart Attack Risk":
-    #         print(df_balanced[column].value_counts())
+    #         print(df[column].value_counts())
     # print("df.shape po upsampling:\n", df.shape)
     # df = df.sample(frac=1)
     # df["Heart Attack Risk"].value_counts().plot.bar()
@@ -289,17 +312,17 @@ def main():
     X_train, X_test, y_train, y_test = split_data(df)
     X_train, X_test = scale_data(X_train, X_test)
 
-    # --- Train and evaluate models ---
+    # # --- Train and evaluate models ---
     rfc(X_train, y_train, X_test, y_test)
     dtc(X_train, y_train, X_test, y_test)
     gaussian(X_train, y_train, X_test, y_test)
     knn(X_train, y_train, X_test, y_test)
-    model, history = neural_network(X_train, y_train, X_test, y_test)
+    history = neural_network(X_train, y_train, X_test, y_test)
     plot_history(history)
 
     # --- Association rules ---
     rules = create_association_rules(df)
-    # print(rules)
+    # # print(rules)
 
     male_heart_attack_risk_rules = rules[
         rules["antecedents"].apply(lambda x: "Sex_1" in x)

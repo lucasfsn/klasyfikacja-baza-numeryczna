@@ -48,6 +48,7 @@ def load_and_preprocess_data():
     df[["Systolic", "Diastolic"]] = (
         df["Blood Pressure"].str.strip().str.split("/", expand=True)
     )
+
     df["Systolic"] = df["Systolic"].astype(int)
     df["Diastolic"] = df["Diastolic"].astype(int)
 
@@ -312,7 +313,7 @@ def main():
     X_train, X_test, y_train, y_test = split_data(df)
     X_train, X_test = scale_data(X_train, X_test)
 
-    # # --- Train and evaluate models ---
+    # --- Train and evaluate models ---
     rfc(X_train, y_train, X_test, y_test)
     dtc(X_train, y_train, X_test, y_test)
     gaussian(X_train, y_train, X_test, y_test)
@@ -322,19 +323,19 @@ def main():
 
     # --- Association rules ---
     rules = create_association_rules(df)
-    # # print(rules)
+    # print(rules)
 
     male_heart_attack_risk_rules = rules[
         rules["antecedents"].apply(lambda x: "Sex_1" in x)
     ].sort_values(by="confidence", ascending=False)
 
-    print(male_heart_attack_risk_rules)
+    print(male_heart_attack_risk_rules)  # []
 
     female_heart_attack_risk_rules = rules[
         rules["antecedents"].apply(lambda x: "Sex_0" in x)
     ].sort_values(by="confidence", ascending=False)
 
-    print(female_heart_attack_risk_rules)
+    print(female_heart_attack_risk_rules)  # [34672 rows x 10 columns]
 
     plot_rules(female_heart_attack_risk_rules, "lift", "confidence")
 
@@ -342,7 +343,7 @@ def main():
         rules["antecedents"].apply(lambda x: "Diabetes_1" in x)
     ].sort_values(by="confidence", ascending=False)
 
-    print(diabetes_heart_attack_risk_rules)
+    print(diabetes_heart_attack_risk_rules)  # [507 rows x 10 columns]
 
     plot_rules(diabetes_heart_attack_risk_rules, "support", "lift")
 
@@ -350,7 +351,7 @@ def main():
         rules["antecedents"].apply(lambda x: "Smoking_1" in x)
     ].sort_values(by="confidence", ascending=False)
 
-    print(smoking_heart_attack_risk_rules)
+    print(smoking_heart_attack_risk_rules)  # [17526 rows x 10 columns]
 
     plot_rules(smoking_heart_attack_risk_rules, "support", "confidence")
 
@@ -358,7 +359,7 @@ def main():
         rules["antecedents"].apply(lambda x: "Obesity_1" in x)
     ].sort_values(by="confidence", ascending=False)
 
-    print(obesity_heart_attack_risk_rules)
+    print(obesity_heart_attack_risk_rules)  # [5 rows x 10 columns]
 
 
 if __name__ == "__main__":

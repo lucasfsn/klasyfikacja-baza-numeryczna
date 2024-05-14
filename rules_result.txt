@@ -1,0 +1,53 @@
+Empty DataFrame
+Columns: [antecedents, consequents, antecedent support, consequent support, support, confidence, lift, leverage, conviction, zhangs_metric]
+Index: []
+                                               antecedents                       consequents  antecedent support  ...  leverage  conviction  zhangs_metric
+4482908         (Continent_3, Hemisphere_0, Diet_1, Sex_0)             (Heart Attack Risk_1)            0.008713  ...  0.004356         inf       0.504395
+2343753  (Sleep Hours Per Day_Low, Family History_0, Se...             (Heart Attack Risk_1)            0.012091  ...  0.006046         inf       0.506120
+2343203  (Smoking_0, Diabetes_0, Hemisphere_0, Sex_0, P...             (Heart Attack Risk_1)            0.008713  ...  0.004356         inf       0.504395
+2343206  (Smoking_0, Diabetes_0, Hemisphere_0, Sex_0, M...             (Heart Attack Risk_1)            0.011202  ...  0.005601         inf       0.505664
+2343750  (Smoking_0, Sleep Hours Per Day_Low, Hemispher...             (Heart Attack Risk_1)            0.011647  ...  0.005823         inf       0.505892
+...                                                    ...                               ...                 ...  ...       ...         ...            ...
+193769   (Hemisphere_0, BMI_Medium, Physical Activity D...             (Heart Attack Risk_1)            0.011113  ...  0.003334    2.500000       0.379214
+3006376  (Alcohol Consumption_0, Hemisphere_0, Physical...             (Heart Attack Risk_1)            0.018225  ...  0.005468    2.500000       0.381961
+969872   (Alcohol Consumption_0, Medication Use_0, Hemi...  (Heart Attack Risk_1, Smoking_1)            0.011113  ...  0.004119    2.853396       0.468556
+83193    (Alcohol Consumption_0, Family History_0, Slee...             (Heart Attack Risk_1)            0.014225  ...  0.004267    2.500000       0.380411
+1788429  (Alcohol Consumption_0, Family History_0, Sede...             (Heart Attack Risk_1)            0.011558  ...  0.003467    2.500000       0.379385
+
+[34672 rows x 10 columns]
+                                               antecedents            consequents  antecedent support  consequent support  ...  lift  leverage  conviction  zhangs_metric
+2343844       (Hemisphere_0, Diabetes_1, Sex_0, Smoking_0)  (Heart Attack Risk_1)            0.012713                 0.5  ...   2.0  0.006357         inf       0.506439
+2343867  (Family History_0, Diabetes_1, Smoking_0, Sex_...  (Heart Attack Risk_1)            0.008713                 0.5  ...   2.0  0.004356         inf       0.504395
+2343875          (Obesity_0, Diabetes_1, Sex_0, Smoking_0)  (Heart Attack Risk_1)            0.010135                 0.5  ...   2.0  0.005068         inf       0.505119
+2343878  (Diabetes_1, Smoking_0, Hemisphere_0, Obesity_...  (Heart Attack Risk_1)            0.008979                 0.5  ...   2.0  0.004490         inf       0.504530
+2343856  (Diabetes_1, Smoking_0, Hemisphere_0, Previous...  (Heart Attack Risk_1)            0.009424                 0.5  ...   2.0  0.004712         inf       0.504757
+...                                                    ...                    ...                 ...                 ...  ...   ...       ...         ...            ...
+532577   (Alcohol Consumption_0, Diabetes_1, Income_Hig...  (Heart Attack Risk_1)            0.010224                 0.5  ...   1.6  0.003067         2.5       0.378874
+3073654  (Alcohol Consumption_0, Diabetes_1, Exercise H...  (Heart Attack Risk_1)            0.010224                 0.5  ...   1.6  0.003067         2.5       0.378874
+235692   (Diabetes_1, Medication Use_0, Hemisphere_0, S...  (Heart Attack Risk_1)            0.024004                 0.5  ...   1.6  0.007201         2.5       0.384223
+3723953  (Diabetes_1, Sleep Hours Per Day_Low, Diet_0, ...  (Heart Attack Risk_1)            0.010224                 0.5  ...   1.6  0.003067         2.5       0.378874
+44220    (Family History_0, Diabetes_1, Medication Use_...  (Heart Attack Risk_1)            0.010224                 0.5  ...   1.6  0.003067         2.5       0.378874
+
+[507 rows x 10 columns]
+                                               antecedents            consequents  antecedent support  consequent support  ...  lift  leverage  conviction  zhangs_metric
+4482451  (Continent_3, Hemisphere_0, Sex_0, Obesity_0, ...  (Heart Attack Risk_1)            0.010402                 0.5  ...   2.0  0.005201         inf       0.505256
+4482560  (Continent_3, Hemisphere_0, Sex_0, Previous He...  (Heart Attack Risk_1)            0.009602                 0.5  ...   2.0  0.004801         inf       0.504847
+4482667  (Alcohol Consumption_0, Continent_3, Hemispher...  (Heart Attack Risk_1)            0.008979                 0.5  ...   2.0  0.004490         inf       0.504530
+4482420  (Continent_3, Hemisphere_0, Obesity_0, Sex_0, ...  (Heart Attack Risk_1)            0.013336                 0.5  ...   2.0  0.006668         inf       0.506758
+4482647  (Alcohol Consumption_0, Continent_3, Hemispher...  (Heart Attack Risk_1)            0.008446                 0.5  ...   2.0  0.004223         inf       0.504259
+...                                                    ...                    ...                 ...                 ...  ...   ...       ...         ...            ...
+129738   (Alcohol Consumption_0, Hemisphere_0, Diet_1, ...  (Heart Attack Risk_1)            0.014225                 0.5  ...   1.6  0.004267         2.5       0.380411
+92577    (Alcohol Consumption_0, Family History_0, Hemi...  (Heart Attack Risk_1)            0.017336                 0.5  ...   1.6  0.005201         2.5       0.381616
+2037977  (Alcohol Consumption_0, Hemisphere_0, Previous...  (Heart Attack Risk_1)            0.016447                 0.5  ...   1.6  0.004934         2.5       0.381271
+2040891  (Hemisphere_0, Sex_0, Heart Rate_Medium, Physi...  (Heart Attack Risk_1)            0.012002                 0.5  ...   1.6  0.003601         2.5       0.379555
+85986    (Alcohol Consumption_0, Family History_0, Diab...  (Heart Attack Risk_1)            0.011558                 0.5  ...   1.6  0.003467         2.5       0.379385
+
+[17526 rows x 10 columns]
+                                               antecedents            consequents  antecedent support  consequent support  ...      lift  leverage  conviction  zhangs_metric     
+2343667                      (Obesity_1, Sex_0, Smoking_0)  (Heart Attack Risk_1)            0.008179                 0.5  ...  2.000000  0.004090         inf       0.504123     
+1701007  (Alcohol Consumption_0, Family History_0, Obes...  (Heart Attack Risk_1)            0.010491                 0.5  ...  1.644068  0.003378    2.809524       0.395906     
+236472   (Alcohol Consumption_0, Family History_0, Obes...  (Heart Attack Risk_1)            0.010846                 0.5  ...  1.622951  0.003378    2.652174       0.388047     
+1701004  (Alcohol Consumption_0, Family History_0, Obes...  (Heart Attack Risk_1)            0.012180                 0.5  ...  1.605839  0.003690    2.537037       0.381925     
+171946   (Obesity_1, Diabetes_0, Hemisphere_0, Sex_0, P...  (Heart Attack Risk_1)            0.010757                 0.5  ...  1.603306  0.003245    2.520833       0.380381     
+
+[5 rows x 10 columns]

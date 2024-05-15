@@ -44,3 +44,10 @@ AUC ROC: 60.64346786558902%
 Neural Network
 Accuracy: 63.822221755981445%
 AUC ROC: 67.494589888623%
+Neural Network (overfitting)
+Accuracy: 60.44444441795349%
+AUC ROC: 66.87279592465987%
+
+Dropout - pomaga zapobiegać przetrenowaniu przez losowe wyłączanie pewnej liczby neuronów podczas każdej epoki treningowej, co pomaga zapobiegać zbyt dużemu dopasowaniu do danych treningowych.
+kernel_regularizer - dodaje karę do funkcji straty na podstawie wielkości wag, co pomaga zapobiegać przetrenowaniu przez zmuszanie wag do przyjmowania mniejszych wartości.
+EarlyStopping - zatrzymuje proces uczenia, gdy model przestaje się poprawiać na zbiorze walidacyjnym, co pomaga zapobiegać przetrenowaniu przez zakończenie uczenia, zanim model zacznie zbyt mocno dopasowywać się do danych treningowych.

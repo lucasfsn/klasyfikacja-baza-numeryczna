@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from imblearn.over_sampling import SMOTE
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, RobustScaler
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import (
     confusion_matrix,
     accuracy_score,
@@ -14,10 +14,10 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
-from keras.models import Sequential, Model
-from keras.layers import Dense, Dropout, Flatten
-from keras.regularizers import l2
-from keras.callbacks import EarlyStopping
+from keras.models import Sequential  # type: ignore
+from keras.layers import Dense, Dropout  # type: ignore
+from keras.regularizers import l2  # type: ignore
+from keras.callbacks import EarlyStopping  # type: ignore
 from mlxtend.frequent_patterns import association_rules, fpgrowth
 
 
